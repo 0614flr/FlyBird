@@ -9,6 +9,8 @@ public class CircleConturoller : MonoBehaviour
     public float jumpHeight=0.05f;
     public float downSpeed=0.02f;
     public int Health = 1;
+
+    private float horizontalInput;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,20 +25,13 @@ public class CircleConturoller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //获取水平输入值
+        horizontalInput = Input.GetAxis("Horizontal");
         //获取玩家垂直轴向输入值
         //移动一般放在update中
         Vector2 pos = transform.position;
-        pos.x = pos.x + moveSpeed*Time.deltaTime;
-        // transform.position = pos;
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Debug.Log("跳跃一次");
-            pos.y = pos.y + jumpHeight*Time.deltaTime;
-        }
-        else
-        {
-            pos.y = pos.y - downSpeed*Time.deltaTime;
-        }
+        pos.y = pos.y + moveSpeed*Time.deltaTime;
+        pos.x = pos.x + horizontalInput * Time.deltaTime;
         rigidbody2d.MovePosition(pos);
     }
 }
